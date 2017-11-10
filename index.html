@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CCGS Documentation</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/print.css" media="print">
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+    </script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+     <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default" id="ignorePDF">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">MCL</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+<!--              <li><a href="http://aengelus.github.io">Home</a></li> -->
+              <li><a href="http://aengelus.github.io/index.html">Home</a></li>
+              <li  class="active"><a href="http://aengelus.github.io/ccgs/index.html">CCGS</a></li>
+            </ul>
+            <button class="btn btn-default navbar-btn navbtn pull-right" onclick="printPage()">Drucke Dokumentation</button>
+<!--            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+              <li><a href="../navbar-static-top/">Alpha</a></li>
+              <li><a href="../navbar-fixed-top/">Bravo</a></li>
+            </ul>-->
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <div id="mySidenav" class="sidenav hidden">
+        <a class="btn btn-default" href="#chapter1" id="_1">1. Einleitung</a>
+        <a class="btn btn-default" href="#chapter2" id="_2">2. Benutzeroberfläche</a>
+        <a class="btn btn-default" href="#modellGeometrie" id="_2_1">Modell-Geometrie</a>
+        <a class="btn btn-default" href="#blockdefinition" id="_2_2">Blockdefinition</a>
+        <a class="btn btn-default" href="#lastZeitReihenfolge" id="_2_3">Last-Zeit-Reihenfolge</a>
+        <a class="btn btn-default" href="#materialgesetz" id="_2_4">Materialgesetz</a></li>
+        <a class="btn btn-default" href="#berechnen" id="_2_5">Berechnen</a></li>
+        <a class="btn btn-default" href="#ergebnisse" id="_2_6">Ergebnisse</a></li>
+        <a class="btn btn-default" href="#chapter3" id="_3">3. Aufbau des Inputfiles</a></li>
+      </div>
+
+      <div  class="col-md-offset-1 col-md-10 tutorial" id="wrapper">
+
+        <div id="webPageStart" align="center"><br>
+          <img class="center" src="./src/img/Head.png" alt="" id="Logo1" />
+        </div>
+
+        <div id="printPageStart" align="center">
+          <br>
+          <br>
+          <br>
+          <br>
+          <h1 class="manual_title">MANUAL</h1>
+          <br>
+          <br>
+          <img class="center" src="./src/img/logo.png" alt="" id="Logo2" />
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <img class="center" src="./src/img/logo_header.jpg" alt="" id="mcl Logo" />
+          Materials Center Leoben Forschung GmbH<br>
+          Roseggerstraße 12<br>
+          8700 Leoben<br>
+          T: +43 3842/45 9 22-0<br>
+          F: +43 3842/45 9 22-500
+        </div>
+        <div class="article" id="chapter1">
+          <h2>1. Einleitung</h2>
+          <b>CCGS</b> (<b>C</b>yclic <b>C</b>rack <b>G</b>rowth <b>S</b>oftware) ist eine Software zur Berechnung des Ermüdungsrisswachstums in verschiedenen Geometrien. Zur Verfügung stehen Achsen, Flachstäbe, CornerCrack-Proben und Rohre.  Mögliche Einsatzgebiete sind Lebensdauerberechnungen in Konstruktion, Instandhaltung und Schadensanalyse. Das Risswachstum kann mittels verschiedener frei wählbarer Rissfortschrittsgesetze unter Verwendung unterschiedlicher Integrationsmethoden bis zu einem definierbaren Abbruchkriterium berechnet werden.
+          Das Programm besteht aus einer graphischen Benutzeroberfläche (GUI) und einem textbasierten Solver. Die Berechnung selbst erfolgt im Solver, der eine Datei mit sämtlichen notwendigen Parametern (Inputfile, *.json) erwartet. Das Inputfile kann vom Benutzer selbst erstellt werden; der einfachere Weg ist aber, das Inputfile in der graphischen Benutzeroberfläche automatisch erstellen zu lassen; die Benutzeroberfläche ermöglicht auch den Aufruf des Solvers und das Betrachten der Ergebnisse.
+          Die Ergebnisse einer Berechnung werden in einer Datenbank (*.db) gespeichert, auf welche mit Hilfe der graphischen Benutzeroberfläche von CCGS zugegriffen werden kann. Hier können die berechneten Rissfortschrittsdaten beliebig kombiniert und in Diagrammen graphisch dargestellt oder in Tabellenform exportiert werden. Zusätzlich zur Datenbank werden die Ergebnisse nach Abschluss einer Rechnung nochmals aus der Datenbank ausgelesen und in ein Textfile (*.txt) gespeichert. Außerdem ist es möglich einen Bericht erstellen zu lassen. Der Bericht ist eine PDF-Datei. Diese protokolliert zusätzlich zu den Ergebnissen einer Berechnung auch sämtliche vom Anwender getätigten Eingaben.
+          Im Folgenden wird in Abschnitt 2 die graphische Benutzeroberfläche von CCGS und in Abschnitt 3 der Aufbau des Inputfiles beschrieben.
+        </div>
+        <div class="article" id="chapter2">
+          <h2>2. Graphische Benutzeroberfläche</h2>
+          Die graphische Benutzeroberfläche von CCGS kann
+          <ol>
+            <li>zum Erzeugen von Inputfiles,</li>
+            <li>zum Aufrufen des Solvers sowie</li>
+            <li>zum Auswerten von Ergebnisfiles</li>
+          </ol>
+          verwendet werden. Die ersten beiden Punkte können auch ohne Starten der graphischen
+          Benutzeroberfläche durchgeführt werden, wobei das selbstständige Erzeugen eines Inputfiles nicht
+          empfohlen wird.
+          <h3>Gliederung und Aufbau</h3>
+          Die Berechnungssoftware CCGS ist abgesehen von Titel-, Menü- und Statusleiste in drei Bereiche gegliedert (siehe Abbildung 1):
+          <ol>
+            <li>
+              <b>Navigationsbereich:</b>
+              Hier sind alle zur Rissfortschrittsberechnung notwendigen Schritte chronologisch von oben nach unten angeordnet.
+            </li>
+            <li>
+              <b>Eingabe- und Ergebnisbereich:</b>
+              In diesem Bereich finden sämtliche Benutzereingaben zu dem jeweils im Navigationsbereich ausgewählten Schritt statt. Auch die Ergebnisse einer Rissfortschrittsberechnung werden in diesem Bereich dargestellt.
+            </li>
+            <li>
+              <b>Informationsbereich:</b>
+              Hier werden die Arbeitsschritte des Benutzers protokolliert und Informationen ausgegeben. Auch die aktuelle Risslänge und die dazugehörigen Lastwechsel werden während einer Berechnung immer wieder im Informationsbereich ausgegeben.
+            </li>
+          </ol>
+          <img class="center" src="./src/img/overview.png" alt=""/>
+          <div class="subtitle">
+            <b>Abbildung 1.</b> Verschiedene Bereiche der Benutzeroberfläche:
+            1-Navigationsbereich;
+            2-Eingabe- und Ergebnisbereich;
+            3-Informationsbereich;
+          </div>
+          Um nun eine Rissfortschrittsberechnung durchzuführen, sind wie bereits oben erwähnt,
+          die verschiedenen Schritte im Navigationsbereich von oben nach unten sequentiell durchzuarbeiten.
+          <div class="article" id="modellGeometrie">
+            Im ersten Schritt der Rissfortschrittsberechnung sind die Geometrie des Ausgangsrisses / der
+            Startkerbe sowie die Belastungsart eines zyklisch belasteten Bauteils zu definieren. Es stehen
+            verschiedene Modelle zur Auswahl: Achse, Flachstab, Corner-Crack und Rohr.
+            <h3>Achse</h3>
+            <h4>Geometrie</h4>
+            In Abb. 2 ist die Eingabemaske für eine zyklisch belastete Achse dargestellt. Die Größe der Achse wird
+            über den Radius R definiert. Es kann der Rissfortschritt sowohl in einer Vollwelle als auch
+            in einer Hohlwelle berechnet werden. Um den Innradius einer Hohlwelle eingeben zu können, muss
+            vorher die Checkbox neben dem Innenradius $R_i$ angehakt sein.
+            Zur Berechnung des Risses wird ein halbelliptischer Startriss (bzw. Startkerbe) über die Risstiefe $a_0$
+            und das Halbachsenverhältnis $a/c$ festgelegt.
+            <h4>Belastungsart</h4>
+            Es ist zwischen zwei verschiedenen Belastungsarten zu wählen. Nämlich der reinen Biegung und der Umlaufbiegung.
+            <h4>Spannungsfelder</h4>
+            Die bei der Rissfortschrittsberechnung auftretenden Spannungen werden in Eigenspannungen und
+            Biegespannungen aufgeteilt. Biegespannungen entsprechen den auftretenden Lastspannungen.
+            In allen Fällen kann man sich die Daten graphisch darstellen lassen. Wenn intern ein Fit der Daten angelegt werden muss, so wird auch dieser dargestellt.
+            <h5>Radiale Eigenspannungen</h5>
+            Eigenspannungsfelder mit einer radialsymmetrischen Spannungsverteilung müssen intern gefittet werden, hierzu kann im Dropdownmenü ein Fit oder die WFM-Methode gewählt werden. Um beurteilen zu können welcher Fit am besten zu den gewählten Daten passt kann man sich ein Diagramm mit den Fits anzeigen lassen.
+            <h5>Zweidimensionale Eigenspannungen</h5>
+            Zweidimensionale Eigenspannungsfelder werden aus CSV-Dateien eingelesen. Die Spalten x, y, und sigma müssen durch Tabulatoren getrennt sein, und der Mittelpunkt des eingelesenen Spannungsfeldes muss im Ursprug liegen.
+            <h5>Biegespannungen</h5>
+            Das Biegespannungsfeld kann entweder analytisch errechnet werden. Dies führt naturgemäß zu einem gleichmäßigen Gradienten.
+            Aber es kann auch eine Datei eingelesen werden die ein ungleichmäßiges Biegespannungsfeld enthält.
+
+            <img class="center" src="./src/img/geometry_axle.png" alt=""/>
+          <div class="subtitle">
+            <b>Abbildung 2.</b> Eingabemaske für Modellgeometrie Achse.
+            1-Definition Wellengeometrie;
+            2-Definition Rissgeometrie (halbelliptischer Riss);
+            4-Bereich Radiale Eigenspannung, mit Auswahl für Fit oder WFM;
+            5-Bereich zweidimensionale Eigenspannung;
+            6-Bereich Biegespannung;
+          </div>
+            <h3>SEB</h3>
+            <h4>Geometrie (Add. 3-1)</h4>
+            Die Eingabemaske für einen zyklisch belasteten Flachstab (SEB-Probe) ist in Abb. 3 dargestellt. Die Geometrie des Flachstabes wird mit der Höhe $W$ und der Dicke $B$ definiert. In diesem Flachstab kann nun das Risswachstum eines über die Dicke gleichmäßig wachsenden Risses mit einer Anfangsrisslänge $a_0$ (Abb. 3-2) berechnet werden. Die Anfangsrisslänge $a_0$ kann Werte > 0 und kleiner $W$ annehmen. Die Geometrie des Flachstabes und die Anfangsrisslänge können beliebig verändert werden. Mit einem Klick auf das grüne Häkchen wird die Vorschau entsprechend den getätigten Veränderungen aktualisiert (Abb. 3-3).
+            <h4>Belastungsart (Add. 3-4)</h4>
+            Zusätzlich ist es möglich, die Belastungsart auszuwählen. Hier wird zwischen Drei-, Vier- und Achtpunkt-Biegebelastung unterschieden. Auch gibt es noch Zugversuche für einen zentrieren Riss, einen einachsigen gestifteten und einen einachsigen geklemmten Zugversuch.
+          </div>
+            <img class="center" src="./src/img/geometry_seb.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 3.</b> Eingabemaske für Modellgeometrie SEB.
+                1-Definition Probengeometrie;
+                2-Definition Anfangsrisslänge;
+                3-Darstellung bzw. Aktualisierung der eingegebenen Biegeprobengeometrie;
+                4-Definition der Belastungsart.
+            </div>
+
+          <h3>Corner Crack</h3>
+            <h4>Geometrie</h4>
+            Die Eingabemaske für einen zyklisch belastete Corner-Crack-Probe ist in Abb. 4 dargestellt. Die Geometrie der Probe wird mit der Kantenlänge $W$ definiert. Es kann nun das Risswachstum eines von der Ecke aus wachsenden Risses mit einer Anfangsrisslänge $a_0$ berechnet werden. Die Anfangsrisslänge $a_0$ kann Werte > 0 und kleiner $W$ annehmen.
+          </div>
+            <img class="center" src="./src/img/corner_crack.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 4.</b> Eingabemaske für Modellgeometrie CornerCrack.
+            </div>
+
+          <h3>Rohr</h3>
+            <h4>Geometrie</h4>
+                Die Eingabemaske für einen zyklisch belastetes Rohr ist in Abb. 5 dargestellt. Die Geometrie des Rohres wird mit dem Radius $R$ und der Wandstärke $t$ definiert.
+            <h4>Belastungsart</h4>
+              Bei der Belastungsart hat man die Wahl zwischen einem Riss normal zur Symetrieachse der durch Zug, Druck oder Biegung zum Wachsen angeregt wird, oder einem Riss parallel zur Symetrieachse der durch Druck vorangetrieben wird. Außerdem gibt es hier noch die Möglichkeit eine Kugel auszuwählen. Diese ist trotz einer anderen Geometrie hier zu finden, da die Methode zur Berechnung parktisch den anderen Auswahlmöglichkeiten entspricht.
+          </div>
+            <img class="center" src="./src/img/pipe.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 5.</b> Eingabemaske für Modellgeometrie Rohr.
+            </div>
+          <div class="article" id="blockdefinition">
+
+
+            <h3>Blockdefinition (Schritt 2)</h3>
+            In diesem Schritt können Blocklastfolgen erstellt und bearbeitet werden. Eine neue Blocklastfolge kann entweder mit einem Doppelklick auf ‚Lastdefinition‘ im Navigationsbereich oder durch Drücken eines Buttons im Eingabebereich hinzugefügt werden. Im Eingabebereich befindet sich auch ein Button zum Einlesen bereits vorhandener Blocklastfolgen. Neu hinzugefügte Blocklastfolgen werden automatisch benannt (Blocklastfolge 0 .. Blocklastfolge X) und sofort im Navigationsbereich angezeigt. Mit Rechtsklick auf eine bestimmte Blocklastfolge kann diese umbenannt oder gelöscht werden.
+            <br>
+            Jede Blocklastfolge kann eine beliebige Anzahl an Blöcken enthalten. Die einzelnen Blocklasten werden mit der Anzahl der Lastwechsel N (oder der kumulierten Lastwechsel N), dem Spannungsverhältnis R$_\sigma$ und der Spannungsamplitude $\sigma_a$ definiert (Abb. 4). Die einzelnen Blöcke werden mit einer fortlaufenden Zahl gekennzeichnet (Abb. 4-10). Durch einen Mausklick auf diese fortlaufende Zahl wird der jeweilige Block markiert. Über eine Buttonleiste ist es möglich, einen neuen Block hinzuzufügen (Abb. 4-1), einen markierten Block zu löschen (Abb. 4-2), zu kopieren (Abb. 4-3) oder einzufügen (Abb. 4-4). Die Position eines markierten Blocks kann innerhalb einer Blocklastfolge nach oben bzw. nach unten (Abb. 4-5) verschoben werden. Um die Gesamtzahl der Lastwechsel einer bestehenden Blocklastfolge – bei gleichbleibendem Verhältnis der Dauer der einzelnen Blöcke zueinander – zu kürzen, kann ein Teiler angegeben werden, durch welchen die Lastwechsel der aktuellen Blocklastfolge geteilt werden (Abb. 4-6). Die neu erzeugte Blocklastfolge wird automatisch im Navigationsbereich eingefügt und kann weiter bearbeitet werden. Ist der Teiler größer als die kleinste Blockdauer (Anzahl der Lastwechsel $N$ eines Blocks), dann kann die entsprechende Blocklastfolge nicht aufgeteilt werden.
+            <br>
+            Um eine Blocklastfolge zu löschen, stehen zwei Möglichkeiten zur Verfügung:
+            <ol>
+              <li>Durch einen Klick mit der rechten Maustaste auf die entsprechende Blocklastfolge und auswählen des Menüpunktes Löschen.</li>
+              <li>Durch Betätigen des Entfernen-Buttons (Abb. 6-7).</li>
+            </ol>
+
+            Erstellte Blocklastfolgen können auch in Dateien abgespeichert, bzw. grafisch dargestellt werden (Abb. 6).
+            <img class="center" src="./src/img/loads_data.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 6.</b> Eingabemaske für die Definition von Blöcken.
+              1-Neue Blocklast hinzufügen;
+              2-Aktuell ausgewählte Blocklast löschen;
+              3-Ausgewählte Blocklast kopieren;
+              4-Ausgewählte Blocklast durch Kopie ersetzen;
+              5-Ausgewählte Zeile verschieben;
+              6-Erstellen einer neuen Blocklastfolge durch Division der aktuellen Blocklastfolge;
+              7-Gesamte Liste (aktuelle Blocklastfolge) löschen;
+              8-Speichern/Speichern unter der aktuellen Blocklastfolge;
+              9-Vorschau der Blocklastfolge erstellen/aktualisieren;
+              10-laufende Nummer der einzelnen Blöcke einer Blocklastfolge.
+              11-Einzellastauswahl
+              12-ursprüngliche Diagrammdarstellung wiederherstellen;
+              13-zur vorhergehenden bzw. nächsten Diagrammansicht wechseln;
+              14-Verschieben;
+              15-Vergrößern (linke Maustaste) bzw. Verkleinern (rechte Maustaste);
+              16-Speichern der aktuellen Darstellung als *.png, *.svg, *.pdf, etc. ;
+            </div>
+          </div>
+          <div class="article" id="lastZeitReihenfolge">
+            <h3>Last-Zeit-Reihenfolge (Schritt 3)</h3>
+            Im Schritt 3 wird nun die Last-Zeit-Reihenfolge (LZR) festgelegt, welche zur Rissfortschrittsberechnung
+              herangezogen werden soll. Dieses Last-Zeit-Reihenfolge kann sich aus einem oder beliebig vielen in
+              Schritt 2 definierten Blocklastfolgen zusammensetzen (siehe Abb. 7).<br>
+              Der Eingabebereich von Schritt 3 gliedert sich dazu in zwei Textfelder:
+            <ul>
+              <li>im linken Textfeld sind alle definierten Blocklastfolgen aufgelistet (Abb. 7-1) und</li>
+              <li>im rechten Textfeld sidn diejenigen Blocklastfolgen die zur Berechnung des Rissfortschritts herangezogen werden (Abb. 7-2)</li>
+            </ul>
+            Um nun Blocklastfolgen bei der Berechnung zu berücksichtigen oder nicht, muss die entsprechende Blocklastfolge mittels Mausklick markiert und mit den in Abb. 7-3 gezeigten Pfeilen zur Last-Zeit-Reihenfolge für die Berechnung hinzugefügt oder eben entfernt werden. Alle Blocklastfolgen, die sich zum Zeitpunkt des Startens der Berechnung im rechten Fenster befinden, werden sequentiell von oben nach unten in der Rissfortschrittsberechnung berücksichtigt. Die Reihenfolge der Blocklastfolgen kann mittels Pfeil-oben bzw. Pfeil-unten geändert werden (Abb. 7-4). Erstellte Last-Zeit-Reihenfolgen können analog zu den Blocklastfolgen in Schritt 2 auch in Dateien abgespeichert (Abb. 7-5) bzw. grafisch dargestellt werden. Hier ist zu Beachten, dass Einmallasten in grün dargestellt werden.
+            <img class="center" src="./src/img/load_order.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 7.</b> Last-Zeit-Reihenfolge für Berechnung festlegen. 1-Anzeige aller zur Verfügung stehenden Blocklastfolgen; 2-Anzeige aller zur Berechnung verwendeten Blocklastfolgen; 3-Verschieben zwischen den beiden Anzeigen; 4-Reihung der Blocklastfolgen ändern; 5-Speichern der aktuellen Last-Zeit-Reihenfolge; 6-Vorschau der aktuellen Last-Zeit-Reihenfolge erstellen/aktualisieren.
+            </div>
+          </div>
+          <div class="article" id="materialgesetz">
+            <h3>Materialgesetz (Schritt 4)</h3>
+            Im Schritt 4 muss das zur Berechnung herangezogene Materialgesetz festgelegt und die jeweiligen Parameter definiert werden. Es stehen insgesamt vier Materialgesetze zur Auswahl:
+            <ol>
+              <li><b>MCL-Kurzriss</b></li>
+              <p>Dieses Materialmodell basiert auf der Veröffentlichung ‚Modified NASGRO equation for physically short cracks‘ und kann das Verhalten kurzer Risse – welche ein atypisches Risswachstumsverhalten aufweisen – gut abbilden. Zusätzlich unterscheidet dieses Materialgesetz zwischen Kerben und Rissen (siehe dazu die Veröffentlichung ,Modified Kitagawa-Takahashi diagram accounting for finite notch depths‘), welche eine deutlich unterschiedliche Risswachstumsgeschwindigkeit aufweisen können. Bei langen Rissen liefert das Materialgesetz MCL-Kurzriss dasselbe Ergebnis wie das NASGRO-Modell.</p>
+              <li><b>NASGRO</b></li>
+              <p>Dieses sehr gängige Risswachstumsmodell kann den Verlauf der Risswachstumskurve für genügend lange Risse gut beschreiben (d.h. für Risse, welche das Rissschließen vollständig aufgebaut haben). Da das beschleunigte Wachstum kurzer Risse allerdings nicht berücksichtigt wird, kann es zu nichtkonservativen Ergebnissen führen!</p>
+              <li><b>Bilinear</b></li>
+              <p>Hier kann ein einfaches, zweistufiges Ermüdungsrisswachstumsgesetz definiert werden. Im Gegensatz zu den ersten beiden Materialgesetzen müssen hier Parameter für mindestens zwei RWerte definiert werden. Zwischen diesen R-Werten wird dann linear interpoliert.</p>
+              <li><b>Tabellarisch</b></li>
+              <p>Für dieses Materialmodell sind einzelne Punkte der Risswachstumskurve tabellarisch zu hinterlegen. Gleich wie beim Materialgesetz Bilinear müssen wieder mindestens zwei Werte für zwei verschiedene R-Werte angegeben werden.</p>
+            </ol>
+            Die Eingabe und Bearbeitung der einzelnen Parameter erfolgt tabellarisch, wobei sich der Eingabebereich für die Materialgesetze 1-3 bis auf die unterschiedlichen Eingabeparameter nicht unterscheidet (siehe Abb. 7). Zur Berechnung des Rissfortschritts werden nur ausgewählte Datensätze (im Fall eines bilinearen Materialgesetzes, siehe auch Abb. 7-1) bzw. ein ausgewählter Datensatz (bei den Materialgesetzen NASGRO bzw. MCL-Kurzriss) herangezogen. Einmal erstellte Materialgesetze können in einer Datei gespeichert und bei anderen Berechnungen wieder eingelesen werden. Der aktuelle Dateipfad wird im Eingabefenster angezeigt (Abb. 7-2). Eine Vorschau der aktuell ausgewählte(n) Risswachstumskurve(n) erhält man über den in Abb. 7-3 dargestellten Button. <br>
+              Der Eingabebereich für das tabellarische Materialgesetz unterscheidet sich von den anderen
+            Materialgesetzen (siehe Abb. 8). Beim tabellarischen Materialgesetz muss für jeden R-Wert eine eigene Tabelle erstellt werden (Abb. 8-1), welche Spannungsintensitätsfaktoren und zugehörige Rissfortschrittsraten enthält. Alle definierten Rissfortschrittskurven werden in Registerform im Eingabefenster dargestellt, wobei man zwischen den verschiedenen Kurven (jede Kurve entspricht einem R-Wert) durch einen Mausklick auf das entsprechende Register hin- und herschalten kann (Abb. 8-2). Um eine Kurve für einen neuen R-Wert zu erstellen bzw. hinzuzufügen, muss der in Abb. 8-3 dargestellte Button gedrückt werden.
+            <img class="center" src="./src/img/material_law_bilinear.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 7.</b> Eingabemaske Materialgesetz Bilinear.
+              1-Auswahl der zur Berechnung herangezogenen Datensätze;
+              2-Dateipfad des aktuellen Datensatzes;
+              3-Vorschau der ausgewählten Rissfortschrittskurven.
+            </div>
+            <img class="center" src="./src/img/material_law_tabular.png" alt=""/>
+            <div class="subtitle">
+              Eingabemaske Materialgesetz Tabellarisch.
+              1-Definition Rissfortschrittskurve für aktuellen R-Wert;
+              2-Umschalten zwischen definierten Rissfortschrittskurven;
+              3-Hinzufügen einer neuen Rissfortschrittskurve.
+            </div>
+          </div>
+          <div class="article" id="berechnen">
+            <h3>Berechnen (Schritt 5)</h3>
+            <h4>Abbruchkriterium (Abb. 9-1)</h4>
+            Die Berechnung des Rissfortschritts erfolgt auf Basis der in den Schritten 1-4 vorgegebenen Parameter. Im Schritt 5 muss ein Abbruchkriterium gewählt werden (Abb. 9-1), wobei die Rissfortschrittsberechnung nach einer bestimmten Anzahl von Lastwechseln $N_{max}$ oder nach einer erreichten Risslänge $a_{max}$ gestoppt wird.
+            <h4>Einstellungen (Abb. 9-2)</h4>Wie die Rissfortschrittsrechnung durchgeführt werden soll, kann durch die Einstellungen definiert werden. Dabei kann die Schrittweite der Integration $\Delta N$ sowie die Anzahl der zu berücksichtigenden Nachkommastellen beim interpolieren des R-Wertes $R_{digits}$ definiert werden. Je größer $\Delta N$ gewählt wird destso schneller, aber ungenauer ist die Rechnung. Ähnliches gilt für $R_{digits}$; dieser Wert hat Auswirkungen auf die Geschwindigkeit und den Speicherverbrauch bei Interpolationen und Extrapolationen). Weiters kann zwischen verschiedenen Integrationsmethoden gewählt werden.
+            <h4>Extrapolationseinstellungen (Abb. 9-3)</h4>
+            Die Extrapolations-Einstellungen sind nur bei den Materialgesetzen Bilinear und Tabellarisch zu definieren. Sie legen das minimale bzw. maximale zur Berechnung herangezogene Spannungsverhältnis $R_{min}$ bzw. $R_{max}$ fest. Tritt während der Rissfortschrittsrechnung ein Spannungsverhältnis kleiner als $R_{min}$ bzw. größer als $R_{max}$ auf, wird stattdessen mit den definierten Grenzwerten $R_{min}$ bzw. $R_{max}$ gerechnet.
+            <h4>Lastverarbeitung / Abarbeitung der Last-Zeit-Reihenfolge (Abb. 9-4)</h4>
+            Es kann des Weiteren auch die Art und Weise definiert werden, wie eine Last-Zeit-Reihenfolge abgearbeitet werden soll. Dabei kann zwischen Sequentiell und Gewichtet unterschieden werden:
+            <p class="col-md-12"></p>
+            <div class="col-md-11 col-md-offset-1">
+              <div class="col-md-2">
+                Sequentiell:
+              </div>
+              <div class="col-md-10">
+                Die in Schritt 3 definierte Last-Zeit-Reihenfolge wird sequentiell Block für Block abgearbeitet. Die Last-Zeit-Reihenfolge wird dabei so oft durchlaufen, bis das definierte Abbruchkriterium erreicht wurde. Es besteht mit dieser Einstellung auch die Möglichkeit, das Abbruchkriterium zu erreichen bevor die definierte Last-Zeit-Reihenfolge vollständig durchlaufen wurde.
+              </div>
+            </div>
+            <p class="col-md-12"></p>
+            <div class="col-md-11 col-md-offset-1">
+              <div class="col-md-2">
+                Gewichtet:
+              </div>
+              <div class="col-md-10">
+                Die definierte Last-Zeit-Reihenfolge wird gewichtet (Verhältnis Anzahl der Lastwechsel pro Block zur Anzahl der gesamten Lastwechsel) zur Rissfortschrittsberechnung herangezogen. Vorteil dieser Methode ist, dass selbst bei wenigen Lastwechseln die gesamte Last-Zeit-Reihenfolge berücksichtigt wird. Der Nachteil dieser Methode ist, dass Lastreihenfolgeeffekte nicht berücksichtigt werden.
+              </div>
+            </div>
+            <p class="col-md-12"></p>
+            <h4>Last-Reihenfolge-Effekte (Abb. 9-7)</h4>
+            Hier kann eingestellt werden ob Effekte wie Überlasten oder oxidinduziertes Rissschließen beachtet werden sollen. Welche Effekte verfügbar sind ist von den Materialgesetzen abhängig. Der 'retardation factor' gibt das minimale Risswachstum an das auf jeden Fall auftritt, damit die Rechnung nicht zu einem kompletten Stillstand kommt.
+            <h4>Start/Stop der Berechnung (Abb. 9-5,6)</h4>
+            Gestartet wird eine Berechnung schließlich durch einen Mausklick auf ‚Berechnung starten‘ (Abb. 9-5). Eine laufende Berechnung kann auch jederzeit mit einem Klick auf den Button Abbrechen (Abb. 9-6) beendet werden. Die Ergebnisse der Berechnung sind dann im letzten Punkt des Navigationsbereiches Ergebnisse dargestellt.
+            <img class="center" src="./src/img/solve.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 9.</b> Eingabemaske für Schritt 5: Berechnen.
+              1-Abbruchkriterium definieren;
+              2-Genauigkeit der Berechnung festlegen sowie Integrationsmethode definieren;
+              3-Extrapolationseinstellungen für Materialgesetzte Bilinear und Tabellarisch;
+              4-Abarbeitung der Last-Zeit-Reihenfolge definieren;
+              5- Berechnung starten;
+              6-laufende Berechnung abbrechen,
+              7-Optionen für Last-Reihenfolge-Effekte
+            </div>
+          </div>
+          <div class="article" id="ergebnisse">
+            <h3>Ergebnisse</h3>
+            Hier werden die Ergebnisse der durchgeführten Berechnungen aufgelistet und mit einer Zufallsbezeichnung versehen. Mittels Rechtsklick auf das entsprechende Ergebnis kann dieses mittels Kontextmenü umbenannt oder gelöscht werden.
+            <h4>Löschen</h4>
+            Wenn man ein Ergebnis in CCGS löscht so werden seine <b>Inputdatei</b>, die zugehörige <b>Datenbank</b> und das daraus generierte <b>Textfile</b> gelöscht. Falls das Verzeichnis in dem diese Dateien lagen nun leer ist wird auch dieses entfernt. Wenn nun aber ein Bericht erzeugt wurde so wird dieser nicht automatisch gelöscht und das Verzeichnis bleibt bestehen. Dieses Verhalten liegt in der Tatsache begründet, dass man den Solver von CCGS auch ohne graphischer Oberfläche starten kann und dessen Rechnungen und Datenbanken von den Nutzern meist in nur einem Verzeichnis gesammelt werden. All diese Ergebnisse können aber auch von der graphischen Oberfläche aus geöffnet werden. Falls nun der Benutzer eine dieser Rechnungen über CCGS löscht dürfen nur die eindeutig der Rechnung zuordenbaren Dateien entfernt werden und nicht einfach ganze Verzeichnisse gelöscht werden. Die PDF-Reporte sind nicht einfach automatisiert einer bestimmten Rechnung zuordenbar da sie zu oft von Nutzern erstellt, umbenannt und oder verschoben werden.
+            <h4>Neuer Plot</h4>
+            Ist ein Ergebnis ausgewählt, kann man sich die Ergebnisse der Rissfortschrittsberechnung, wie in zum Beispiel in Abbildung 10, graphisch darstellen lassen. Das Anzeigen der Ergebnisse funktioniert über den Button "Neuer Plot". Es öffnet sich ein Auswahldialog, bei dem die Werte für xx uns y-Achse wählbar sind.
+            <br>
+            Zur Auswahl stehen:
+            <table align="center">
+              <tr>
+                <th>Wert</th>
+                <th>Einheit</th>
+                <th>Bezeichnung</th>
+              </tr>
+              <tr>
+                <td>$a$</td>
+                <td>$[mm]$</td>
+                <td>Risstiefe, <br>oder kleine Halbachse des halbelliptischen Risses</td>
+              </tr>
+              <tr>
+                <td>$c$</td>
+                <td>$[mm]$</td>
+                <td>Große Halbachse des halbelliptischen Risses</td>
+              </tr>
+              <tr>
+                <td>$s$</td>
+                <td>$[mm]$</td>
+                <td>Rissbreite an der Oberfläche<br>(Vorsicht: $s$ entspricht nur der halben Rissbreite an der Oberfläche)</td>
+              </tr>
+              <tr>
+                <td>$\frac{da}{dN}, \frac{ds}{dN}$</td>
+                <td>$[\frac{mm}{Lastwechsel}]$</td>
+                <td>Risswachstumsgeschwindigkeit in die Tiefe und an der Oberfläche</td>
+              </tr>
+              <tr>
+                <td>$\Delta K_A, \Delta K_C$</td>
+                <td>$[MPa\sqrt{m}]$</td>
+                <td>Schwingbreite des Spannungsintensitätsfaktors</td>
+              </tr>
+              <tr>
+                <td>$N$</td>
+                <td>$[-]$</td>
+                <td>Anzahl Lastwechsel</td>
+              </tr>
+              <tr>
+                <td>$R_A, R_C$</td>
+                <td>$[-]$</td>
+                <td>Spannungsverhältnis</td>
+              </tr>
+              <tr>
+                <td>$id$</td>
+                <td>$[-]$</td>
+                <td>Eine fortlaufende id für alle Werte</td>
+              </tr>
+              <tr>
+                <td>$K_{min}$</td>
+                <td>$[MPa\sqrt{m}]$</td>
+                <td>Minimaler Spannungsintensitätsfaktor</td>
+              </tr>
+              <tr>
+                <td>$K_{max}$</td>
+                <td>$[MPa\sqrt{m}]$</td>
+                <td>Maximaler Spannungsintensitätsfaktor</td>
+              </tr>
+              <tr>
+                <td>$\sigma_a$</td>
+                <td>$[MPa]$</td>
+                <td>Spannungsamplitude</td>
+              </tr>
+              <tr>
+                <td>$a/c$</td>
+                <td>$[-]$</td>
+                <td>Verhältnis von Risstiefe zu "Rissbreite" <br>(Eigentlich das Verhältnis von Nebenachse zu Hauptachse beim halbelliptischen Riss)</td>
+              </tr>
+              <tr>
+                <td>$a/r$</td>
+                <td>$[-]$</td>
+                <td>Verhältnis von Risstiefe zu Achsenradius</td>
+              </tr>
+            </table>
+            <img class="center" src="./src/img/result.png" alt=""/>
+            <div class="subtitle">
+              <b>Abbildung 10.</b>
+              Ergebnisfenster mit geplotteter Risslänge in beide Richtungen a und s über Anzahl der Lastwechsel, kombiniert mit der Lastamplitude $\sigma_a$ in rot.
+            </div>
+            <h4>In Zwischenablage kopieren</h4>
+            Um die Ergebnisse der Rechnung in die Zwischenablage zu kopieren anstatt sie graphish zu plotten dient der Button "In Zwischenablage kopiere". Wenn dieser geklicht wird öffnet sich das selbe Dialogfenster wie beim Button "Neuer Plot". Hier sind nun die gewünschten Spalten/Daten zu wählen. Nach einem Klick auf OK sind die Daten in der Zwischenablage und können in zum Beispiel Excel oder Origin eingefügt werden. (mittels Einfügen Menü oder Tastenkombination [Strg]+[V]).
+            <h4>Bericht erstellen</h4>
+            Die Ergebnisse können auch in einem PDF-Bericht zusammengefasst werden. Nach einem Klick auf den Button "Bericht erstellen" öffnet sich ein Informationsdialog, der den Nutzer warnt, dass das Erstellen des Berichtes einige Zeit in Anspruch nehmen kann. Nach dem Schließen des Dialoges beginnt die Erstellung des Berichtes. Im Bericht sind die Eistellungen mit denen der Solver gelaufen ist zusammengefasst. Außerdem ist eine Tabelle mit ausgewählten Werten aus der Datenbank erhalten. Es werden soviele Zeilen dargestellt wie auf einer A4-Seite Platz finden. Die erste Zeile enthält die Startwerte, die letzte die Endwerte und alle Zeilen dzwischen sind ein mölichst geleichmäßiger Auszug aus der Datenbank. Auf der letzten Seite ist ein Plot der Risstiefe $a$ über $N$ in blau zu sehen; die roten Kreuzchen auf diesem Plot entsprechen den Daten aus der oben erwähnten Tabelle.
+            <h4>Daten inspizieren</h4>
+            Hier gibt es die Möglichkeit die im Verlauf der Berechnung ertselllten Dateien zu öffnen ohne den Explorer nutzen zu müssen.
+            <h5>JSON-Datei öffnen</h5>
+            Öffnet die Solverdatei mit dem in Windows festgelegten Standardprogramm. Falls man vor hat den Solver in Zukunft ohne graphischer Oberflache zu nutzen sind die hier erstellten Solvedateien ein sehr guter Ausgangspunkt.
+            <h5>Datenbank öffnen</h5>
+            Öffnet die Datenbank mit dem in Windows festgelegten Standardprogramm.
+            <h5>Textdatei öffnen</h5>
+            Öffnet die Textdatei mit dem in Windows festgelegten Standardprogramm.
+          </div>
+        </div>
+        <div class="article" id="chapter3">
+          <h2>3. Aufbau des Inputfiles</h2>
+          Wie bereits in der Einleitung erwähnt, wird von Entwicklerseite empfohlen, ein Inputfile
+          (*.json) über die graphische Benutzeroberfläche zu erstellen. Da aber auch die Möglichkeit besteht,
+          den Solver extra zu starten (mainsolver.exe), wird hier am Beispiel der obigen Rechnung der Aufbau eines *.json-Files
+          beschrieben.
+          Das JSON-Dateiformat unterstützt keine Kommentare. daher kann das folgende Beispiel nicht einfach kopiert und vom Solver ausgeführt werden. Es müssten vorher alle Kommentare entfernt werden.
+          <div id="editor">{
+  "geometry_model": { # Im Abschnitt Geometrie-Modell werden die Einstellungen zur Geometrie zusammen gefassst.
+    "data": { # Im Abschnitt data stehen die eigentlichen Daten.
+      "D_wheel": 0.92,
+      "R": 90.0, # Radius
+      "R_i": 30.0, # Innenradius bei Hohlwelle
+      "R_i_exists": true, # Definiert ob eine Hohlwelle vorliegt oder nicht.
+      "a_0": 10.0, # Startrisslänge / Risslänge zum Zeitpunkt 0
+      "ac": 0.6, # a/c Verhältniss am Beginn
+      "bending_stress": { # Biegespannung
+        "type": "analytical" # definiert ob die Biegespannng analytisch 'analytical' oder aus einer Datei 'file' stammt
+      },
+      "load_type": "rotating-bending", # Belastungsart zb rotating-bending für Umlaufbiegung
+      "method": "pif", # Methode zum Berechnen der Eigenspannungen pif = Polynomial Influence Function.
+      "order": 4, # Ordnung des Polynomes
+      "residual_stress": { # Eigenspannungen
+        "r": [ # Liste von Radien der Eigenspannungen
+          15.0,
+          30.0,
+          40.0,
+          45.0,
+          50.0,
+          55.0,
+          60.0,
+          65.0,
+          70.0,
+          75.0,
+          80.0,
+          85.0,
+          90.0
+        ],
+        "sigma": [ # Liste zugehörige Spannungen
+          20.0,
+          20.0,
+          19.0,
+          18.0,
+          15.0,
+          10.0,
+          5.0,
+          0.0,
+          -10.0,
+          -30.0,
+          -40.0,
+          -50.0,
+          -60.0
+        ],
+        "type": "data" # Gibt an, dass die Daten aus 'data' stammen und nicht aus z.B. 'file'.
+      }
+    },
+    "type": "axle" # Definiert die den typ der Geometrie: 'axle' oder 'seb'
+  },
+  "load_composition": { # Lastzusammenstellung
+    "R": [ # R-Werte
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "amplitude": [ # Amplituden
+      160.0,
+      130.0,
+      20.0
+    ],
+    "cycles": [ # Zyklenzahlen (nicht akkumuliert)
+      100000,
+      150000,
+      30000
+    ],
+    "name": [ # Namen der Abschnitte (haben keinerlei Auswirkungen auf die Rechnung)
+      "False",
+      "Bereich 2",
+      "Bereich 3"
+    ],
+    "one_time": [ # Gibt an ob eine Last nur beim ersten Durchlauf der Lastzusammenstellung aktiv sein soll.
+      false,
+      false,
+      false
+    ],
+    "type": "data" # Zeigt an in welcher Form die Daten der Lastzusammenstellung vorliegen.
+  },
+  "material_law": { # verwendetes Materialgesetz
+    "data": [ # data enthält eine Liste von mehreren Kurven für das entsprechende Materialgesetz.
+      {
+        "C1": 1.44e-53,
+        "C2": 2.74e-10,
+        "K_C": 90.0,
+        "R": -1.0,
+        "DeltaK_th": 13.0,
+        "n1": 40.0,
+        "n2": 3.2
+      },
+      {
+        "C1": 2e-45,
+        "C2": 2.65e-09,
+        "K_C": 90.0,
+        "R": 0.1,
+        "DeltaK_th": 7.5,
+        "n1": 40.0,
+        "n2": 3.2
+      }
+    ],
+    "file": "D:\\Drlicek Anatöl\\PyCharm\\MCLFCG\\data\\bilinear\\A4T.json", # Ursprungsdatei
+    "type": "bilinear" # Typ des Materialgesetzes
+  },
+  "result": { # Ergebnisbereich, enthält den Namen der zugehörigen Datenbank in der die Ergebnisse landen.
+    "db_name": "af44d94f-7204-11e7-ad76-001999e5d9e6.db" # Relativer Pfad ausgehend von dieser Datei
+  },
+  "solve": { # Berechnungseinstellungen
+    "DeltaN": 1000.0,
+    "R_max": 0.7,
+    "R_min": -3.0,
+    "R_round": 4,
+    "a_max": 20.0,
+    "integration_method": "classic_fourth_order_method",
+    "retardation_factor": 0.1,
+    "step_option": "sequential",
+    "stop_criteria": "a_max"
+  },
+  "type": "solver_dict" # zeigt an, dass es sich bei dieser Datei um Daten für den Solver/eine Berechnung handelt.
+}
+          </div>
+          <h3>"type": "file"</h3>
+          Wenn CCGS eine json Datei erstellt, dann wird es alle benötigten Daten in die JSON-Datei schreiben. Für einen Nutzer der nur den Solver verwendet ist es jedoch umständlich und zeitraubend alle Daten (vielleicht sogar von Hand) einzutragen. Daher gibt es bei manchen Abschnitten die Möglichkeit den "type" von "data" auf "file" abzuändern. Dann erwartet der solver keinen Abschnitt "data" voller Zahlen mehr, sonderen ein Schlüsselwort "file", das den Pfad zu einer Datei angibt. Dies ist für die folgenden Abschnitte möglich:
+          <h4>bending_stress / Biegespannungen:</h4>
+          Dateityp: .csv
+          <ul>
+            <li>Spalten: x$[mm]$, y$[mm]$, sigma$[MPa]$</li>
+            <li>Trennzeichen: Tabulator \t</li>
+            <li>Kommentare: #</li>
+          </ul>
+          <h4>residual_stress / Eigenspannungen:</h4>
+          Dateityp: .csv
+          <ul>
+            <li>Spalten: r$[mm]$, sigma$[MPa]$</li>
+            <li>Trennzeichen: Tabulator \t</li>
+            <li>Kommentare: #</li>
+          </ul>
+      <h4>load_composition / Lastzusammenstellung:</h4>
+          Dateitypen: .json, .enc oder .csv
+          <ul>
+            <li>.json:</li>
+              <ul>
+                <li>Enthält Listen für R-Wert, cycles, amplitude, und Einmal-Lasten</li>
+              </ul>
+            <li>.enc:</li>
+              <ul>
+                <li>ist nur ein vom mcl-verschlüsseltes .json file (enc steht für encrypted)</li>
+              </ul>
+            <li>.csv:</li>
+              <ul>
+                <li>Trennzeichen: Tabulator \t</li>
+                <li>Kommentare: #</li>
+                <li>Spaltenreihenfolge: cycles$[-]$, R-Wert$[-]$, amplitude$[Mpa]$, one_time$[-]$</li>
+              </ul>
+              in der Spalte "one_time" steht entweder "true" oder "false"
+          </ul>
+          <div id="lastDivStanding"></div>
+        </div>
+    </div><!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--    <script src="./src/js/jquery.fullPage.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!--    <script src="js/jspdf.js" type="text/javascript" charset="utf-8" async defer></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.8/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./src/js/script.js" type="text/javascript" charset="utf-8" async defer></script>
+  </body>
+</html>
