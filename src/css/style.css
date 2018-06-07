@@ -113,7 +113,11 @@ table tr:nth-child(odd) {
 }
 
 #_3 {
-	top: 520px;
+	top:520px;
+}
+
+#_4 {
+    top:580px;
 }
 
 .sidenav{

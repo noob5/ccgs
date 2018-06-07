@@ -46,6 +46,7 @@
             <ul class="nav navbar-nav">
 <!--              <li><a href="http://aengelus.github.io">Home</a></li> -->
               <li><a href="http://aengelus.github.io/index.html">Home</a></li>
+              <li  class=""><a href="http://aengelus.github.io/inara/index.html">INARA</a></li>
               <li  class="active"><a href="http://aengelus.github.io/ccgs/index.html">CCGS</a></li>
             </ul>
             <button class="btn btn-default navbar-btn navbtn pull-right" onclick="printPage()">Drucke Dokumentation</button>
@@ -68,6 +69,7 @@
         <a class="btn btn-default" href="#berechnen" id="_2_5">Berechnen</a></li>
         <a class="btn btn-default" href="#ergebnisse" id="_2_6">Ergebnisse</a></li>
         <a class="btn btn-default" href="#chapter3" id="_3">3. Aufbau des Inputfiles</a></li>
+        <a class="btn btn-default" href="#chapter4" id="_4">4. Statische Sicherheit</a></li>
       </div>
 
       <div  class="col-md-offset-1 col-md-10 tutorial" id="wrapper">
@@ -112,7 +114,7 @@
           Das Programm besteht aus einer graphischen Benutzeroberfläche (GUI) und einem textbasierten Solver. Die Berechnung selbst erfolgt im Solver, der eine Datei mit sämtlichen notwendigen Parametern (Inputfile, *.json) erwartet. Das Inputfile kann vom Benutzer selbst erstellt werden; der einfachere Weg ist aber, das Inputfile in der graphischen Benutzeroberfläche automatisch erstellen zu lassen; die Benutzeroberfläche ermöglicht auch den Aufruf des Solvers und das Betrachten der Ergebnisse.
           Die Ergebnisse einer Berechnung werden in einer Datenbank (*.db) gespeichert, auf welche mit Hilfe der graphischen Benutzeroberfläche von CCGS zugegriffen werden kann. Hier können die berechneten Rissfortschrittsdaten beliebig kombiniert und in Diagrammen graphisch dargestellt oder in Tabellenform exportiert werden. Zusätzlich zur Datenbank werden die Ergebnisse nach Abschluss einer Rechnung nochmals aus der Datenbank ausgelesen und in ein Textfile (*.txt) gespeichert. Außerdem ist es möglich einen Bericht erstellen zu lassen. Der Bericht ist eine PDF-Datei. Diese protokolliert zusätzlich zu den Ergebnissen einer Berechnung auch sämtliche vom Anwender getätigten Eingaben.
           Im Folgenden wird in Abschnitt 2 die graphische Benutzeroberfläche von CCGS und in Abschnitt 3 der Aufbau des Inputfiles beschrieben.
-        </div>
+          </div>
         <div class="article" id="chapter2">
           <h2>2. Graphische Benutzeroberfläche</h2>
           Die graphische Benutzeroberfläche von CCGS kann
@@ -189,7 +191,7 @@
             Die Eingabemaske für einen zyklisch belasteten Flachstab (SEB-Probe) ist in Abb. 3 dargestellt. Die Geometrie des Flachstabes wird mit der Höhe $W$ und der Dicke $B$ definiert. In diesem Flachstab kann nun das Risswachstum eines über die Dicke gleichmäßig wachsenden Risses mit einer Anfangsrisslänge $a_0$ (Abb. 3-2) berechnet werden. Die Anfangsrisslänge $a_0$ kann Werte > 0 und kleiner $W$ annehmen. Die Geometrie des Flachstabes und die Anfangsrisslänge können beliebig verändert werden. Mit einem Klick auf das grüne Häkchen wird die Vorschau entsprechend den getätigten Veränderungen aktualisiert (Abb. 3-3).
             <h4>Belastungsart (Add. 3-4)</h4>
             Zusätzlich ist es möglich, die Belastungsart auszuwählen. Hier wird zwischen Drei-, Vier- und Achtpunkt-Biegebelastung unterschieden. Auch gibt es noch Zugversuche für einen zentrieren Riss, einen einachsigen gestifteten und einen einachsigen geklemmten Zugversuch.
-          </div>
+          
             <img class="center" src="./src/img/geometry_seb.png" alt=""/>
             <div class="subtitle">
               <b>Abbildung 3.</b> Eingabemaske für Modellgeometrie SEB.
@@ -213,11 +215,11 @@
                 Die Eingabemaske für einen zyklisch belastetes Rohr ist in Abb. 5 dargestellt. Die Geometrie des Rohres wird mit dem Radius $R$ und der Wandstärke $t$ definiert.
             <h4>Belastungsart</h4>
               Bei der Belastungsart hat man die Wahl zwischen einem Riss normal zur Symetrieachse der durch Zug, Druck oder Biegung zum Wachsen angeregt wird, oder einem Riss parallel zur Symetrieachse der durch Druck vorangetrieben wird. Außerdem gibt es hier noch die Möglichkeit eine Kugel auszuwählen. Diese ist trotz einer anderen Geometrie hier zu finden, da die Methode zur Berechnung parktisch den anderen Auswahlmöglichkeiten entspricht.
-          </div>
             <img class="center" src="./src/img/pipe.png" alt=""/>
             <div class="subtitle">
               <b>Abbildung 5.</b> Eingabemaske für Modellgeometrie Rohr.
             </div>
+          </div>
           <div class="article" id="blockdefinition">
 
 
@@ -288,13 +290,14 @@
             Materialgesetzen (siehe Abb. 8). Beim tabellarischen Materialgesetz muss für jeden R-Wert eine eigene Tabelle erstellt werden (Abb. 8-1), welche Spannungsintensitätsfaktoren und zugehörige Rissfortschrittsraten enthält. Alle definierten Rissfortschrittskurven werden in Registerform im Eingabefenster dargestellt, wobei man zwischen den verschiedenen Kurven (jede Kurve entspricht einem R-Wert) durch einen Mausklick auf das entsprechende Register hin- und herschalten kann (Abb. 8-2). Um eine Kurve für einen neuen R-Wert zu erstellen bzw. hinzuzufügen, muss der in Abb. 8-3 dargestellte Button gedrückt werden.
             <img class="center" src="./src/img/material_law_bilinear.png" alt=""/>
             <div class="subtitle">
-              <b>Abbildung 7.</b> Eingabemaske Materialgesetz Bilinear.
+              <b>Abbildung 8.</b> Eingabemaske Materialgesetz Bilinear.
               1-Auswahl der zur Berechnung herangezogenen Datensätze;
               2-Dateipfad des aktuellen Datensatzes;
               3-Vorschau der ausgewählten Rissfortschrittskurven.
             </div>
             <img class="center" src="./src/img/material_law_tabular.png" alt=""/>
             <div class="subtitle">
+              <b>Abbildung 9.</b> 
               Eingabemaske Materialgesetz Tabellarisch.
               1-Definition Rissfortschrittskurve für aktuellen R-Wert;
               2-Umschalten zwischen definierten Rissfortschrittskurven;
@@ -335,7 +338,7 @@
             Gestartet wird eine Berechnung schließlich durch einen Mausklick auf ‚Berechnung starten‘ (Abb. 9-5). Eine laufende Berechnung kann auch jederzeit mit einem Klick auf den Button Abbrechen (Abb. 9-6) beendet werden. Die Ergebnisse der Berechnung sind dann im letzten Punkt des Navigationsbereiches Ergebnisse dargestellt.
             <img class="center" src="./src/img/solve.png" alt=""/>
             <div class="subtitle">
-              <b>Abbildung 9.</b> Eingabemaske für Schritt 5: Berechnen.
+              <b>Abbildung 10.</b> Eingabemaske für Schritt 5: Berechnen.
               1-Abbruchkriterium definieren;
               2-Genauigkeit der Berechnung festlegen sowie Integrationsmethode definieren;
               3-Extrapolationseinstellungen für Materialgesetzte Bilinear und Tabellarisch;
@@ -428,7 +431,7 @@
             </table>
             <img class="center" src="./src/img/result.png" alt=""/>
             <div class="subtitle">
-              <b>Abbildung 10.</b>
+              <b>Abbildung 11.</b>
               Ergebnisfenster mit geplotteter Risslänge in beide Richtungen a und s über Anzahl der Lastwechsel, kombiniert mit der Lastamplitude $\sigma_a$ in rot.
             </div>
             <h4>In Zwischenablage kopieren</h4>
@@ -444,7 +447,6 @@
             <h5>Textdatei öffnen</h5>
             Öffnet die Textdatei mit dem in Windows festgelegten Standardprogramm.
           </div>
-        </div>
         <div class="article" id="chapter3">
           <h2>3. Aufbau des Inputfiles</h2>
           Wie bereits in der Einleitung erwähnt, wird von Entwicklerseite empfohlen, ein Inputfile
@@ -453,143 +455,143 @@
           beschrieben.
           Das JSON-Dateiformat unterstützt keine Kommentare. daher kann das folgende Beispiel nicht einfach kopiert und vom Solver ausgeführt werden. Es müssten vorher alle Kommentare entfernt werden.
           <div id="editor">{
-  "geometry_model": { # Im Abschnitt Geometrie-Modell werden die Einstellungen zur Geometrie zusammen gefassst.
-    "data": { # Im Abschnitt data stehen die eigentlichen Daten.
-      "D_wheel": 0.92,
-      "R": 90.0, # Radius
-      "R_i": 30.0, # Innenradius bei Hohlwelle
-      "R_i_exists": true, # Definiert ob eine Hohlwelle vorliegt oder nicht.
-      "a_0": 10.0, # Startrisslänge / Risslänge zum Zeitpunkt 0
-      "ac": 0.6, # a/c Verhältniss am Beginn
-      "bending_stress": { # Biegespannung
-        "type": "analytical" # definiert ob die Biegespannng analytisch 'analytical' oder aus einer Datei 'file' stammt
-      },
-      "load_type": "rotating-bending", # Belastungsart zb rotating-bending für Umlaufbiegung
-      "method": "pif", # Methode zum Berechnen der Eigenspannungen pif = Polynomial Influence Function.
-      "order": 4, # Ordnung des Polynomes
-      "residual_stress": { # Eigenspannungen
-        "r": [ # Liste von Radien der Eigenspannungen
-          15.0,
-          30.0,
-          40.0,
-          45.0,
-          50.0,
-          55.0,
-          60.0,
-          65.0,
-          70.0,
-          75.0,
-          80.0,
-          85.0,
-          90.0
-        ],
-        "sigma": [ # Liste zugehörige Spannungen
-          20.0,
-          20.0,
-          19.0,
-          18.0,
-          15.0,
-          10.0,
-          5.0,
-          0.0,
-          -10.0,
-          -30.0,
-          -40.0,
-          -50.0,
-          -60.0
-        ],
-        "type": "data" # Gibt an, dass die Daten aus 'data' stammen und nicht aus z.B. 'file'.
-      }
-    },
-    "type": "axle" # Definiert die den typ der Geometrie: 'axle' oder 'seb'
-  },
-  "load_composition": { # Lastzusammenstellung
-    "R": [ # R-Werte
-      -1.0,
-      -1.0,
-      -1.0
-    ],
-    "amplitude": [ # Amplituden
-      160.0,
-      130.0,
-      20.0
-    ],
-    "cycles": [ # Zyklenzahlen (nicht akkumuliert)
-      100000,
-      150000,
-      30000
-    ],
-    "name": [ # Namen der Abschnitte (haben keinerlei Auswirkungen auf die Rechnung)
-      "False",
-      "Bereich 2",
-      "Bereich 3"
-    ],
-    "one_time": [ # Gibt an ob eine Last nur beim ersten Durchlauf der Lastzusammenstellung aktiv sein soll.
-      false,
-      false,
-      false
-    ],
-    "type": "data" # Zeigt an in welcher Form die Daten der Lastzusammenstellung vorliegen.
-  },
-  "material_law": { # verwendetes Materialgesetz
-    "data": [ # data enthält eine Liste von mehreren Kurven für das entsprechende Materialgesetz.
-      {
-        "C1": 1.44e-53,
-        "C2": 2.74e-10,
-        "K_C": 90.0,
-        "R": -1.0,
-        "DeltaK_th": 13.0,
-        "n1": 40.0,
-        "n2": 3.2
-      },
-      {
-        "C1": 2e-45,
-        "C2": 2.65e-09,
-        "K_C": 90.0,
-        "R": 0.1,
-        "DeltaK_th": 7.5,
-        "n1": 40.0,
-        "n2": 3.2
-      }
-    ],
-    "file": "D:\\Drlicek Anatöl\\PyCharm\\MCLFCG\\data\\bilinear\\A4T.json", # Ursprungsdatei
-    "type": "bilinear" # Typ des Materialgesetzes
-  },
-  "result": { # Ergebnisbereich, enthält den Namen der zugehörigen Datenbank in der die Ergebnisse landen.
-    "db_name": "af44d94f-7204-11e7-ad76-001999e5d9e6.db" # Relativer Pfad ausgehend von dieser Datei
-  },
-  "solve": { # Berechnungseinstellungen
-    "DeltaN": 1000.0,
-    "R_max": 0.7,
-    "R_min": -3.0,
-    "R_round": 4,
-    "a_max": 20.0,
-    "integration_method": "classic_fourth_order_method",
-    "retardation_factor": 0.1,
-    "step_option": "sequential",
-    "stop_criteria": "a_max"
-  },
-  "type": "solver_dict" # zeigt an, dass es sich bei dieser Datei um Daten für den Solver/eine Berechnung handelt.
-}
+            "geometry_model": { # Im Abschnitt Geometrie-Modell werden die Einstellungen zur Geometrie zusammen gefassst.
+            "data": { # Im Abschnitt data stehen die eigentlichen Daten.
+              "D_wheel": 0.92,
+              "R": 90.0, # Radius
+              "R_i": 30.0, # Innenradius bei Hohlwelle
+              "R_i_exists": true, # Definiert ob eine Hohlwelle vorliegt oder nicht.
+              "a_0": 10.0, # Startrisslänge / Risslänge zum Zeitpunkt 0
+              "ac": 0.6, # a/c Verhältniss am Beginn
+              "bending_stress": { # Biegespannung
+                "type": "analytical" # definiert ob die Biegespannng analytisch 'analytical' oder aus einer Datei 'file' stammt
+              },
+              "load_type": "rotating-bending", # Belastungsart zb rotating-bending für Umlaufbiegung
+              "method": "pif", # Methode zum Berechnen der Eigenspannungen pif = Polynomial Influence Function.
+              "order": 4, # Ordnung des Polynomes
+              "residual_stress": { # Eigenspannungen
+                "r": [ # Liste von Radien der Eigenspannungen
+                  15.0,
+                  30.0,
+                  40.0,
+                  45.0,
+                  50.0,
+                  55.0,
+                  60.0,
+                  65.0,
+                  70.0,
+                  75.0,
+                  80.0,
+                  85.0,
+                  90.0
+                ],
+                "sigma": [ # Liste zugehörige Spannungen
+                  20.0,
+                  20.0,
+                  19.0,
+                  18.0,
+                  15.0,
+                  10.0,
+                  5.0,
+                  0.0,
+                  -10.0,
+                  -30.0,
+                  -40.0,
+                  -50.0,
+                  -60.0
+                ],
+                "type": "data" # Gibt an, dass die Daten aus 'data' stammen und nicht aus z.B. 'file'.
+              }
+            },
+            "type": "axle" # Definiert die den typ der Geometrie: 'axle' oder 'seb'
+            },
+            "load_composition": { # Lastzusammenstellung
+              "R": [ # R-Werte
+                -1.0,
+                -1.0,
+                -1.0
+              ],
+              "amplitude": [ # Amplituden
+                160.0,
+                130.0,
+                20.0
+              ],
+              "cycles": [ # Zyklenzahlen (nicht akkumuliert)
+                100000,
+                150000,
+                30000
+              ],
+              "name": [ # Namen der Abschnitte (haben keinerlei Auswirkungen auf die Rechnung)
+                "False",
+                "Bereich 2",
+                "Bereich 3"
+              ],
+              "one_time": [ # Gibt an ob eine Last nur beim ersten Durchlauf der Lastzusammenstellung aktiv sein soll.
+                false,
+                false,
+                false
+              ],
+              "type": "data" # Zeigt an in welcher Form die Daten der Lastzusammenstellung vorliegen.
+            },
+            "material_law": { # verwendetes Materialgesetz
+              "data": [ # data enthält eine Liste von mehreren Kurven für das entsprechende Materialgesetz.
+                {
+                  "C1": 1.44e-53,
+                  "C2": 2.74e-10,
+                  "K_C": 90.0,
+                  "R": -1.0,
+                  "DeltaK_th": 13.0,
+                  "n1": 40.0,
+                  "n2": 3.2
+                },
+                {
+                  "C1": 2e-45,
+                  "C2": 2.65e-09,
+                  "K_C": 90.0,
+                  "R": 0.1,
+                  "DeltaK_th": 7.5,
+                  "n1": 40.0,
+                  "n2": 3.2
+                }
+              ],
+              "file": "D:\\Drlicek Anatöl\\PyCharm\\MCLFCG\\data\\bilinear\\A4T.json", # Ursprungsdatei
+              "type": "bilinear" # Typ des Materialgesetzes
+            },
+            "result": { # Ergebnisbereich, enthält den Namen der zugehörigen Datenbank in der die Ergebnisse landen.
+              "db_name": "af44d94f-7204-11e7-ad76-001999e5d9e6.db" # Relativer Pfad ausgehend von dieser Datei
+            },
+            "solve": { # Berechnungseinstellungen
+              "DeltaN": 1000.0,
+              "R_max": 0.7,
+              "R_min": -3.0,
+              "R_round": 4,
+              "a_max": 20.0,
+              "integration_method": "classic_fourth_order_method",
+              "retardation_factor": 0.1,
+              "step_option": "sequential",
+              "stop_criteria": "a_max"
+            },
+            "type": "solver_dict" # zeigt an, dass es sich bei dieser Datei um Daten für den Solver/eine Berechnung handelt.
+            }
           </div>
-          <h3>"type": "file"</h3>
-          Wenn CCGS eine json Datei erstellt, dann wird es alle benötigten Daten in die JSON-Datei schreiben. Für einen Nutzer der nur den Solver verwendet ist es jedoch umständlich und zeitraubend alle Daten (vielleicht sogar von Hand) einzutragen. Daher gibt es bei manchen Abschnitten die Möglichkeit den "type" von "data" auf "file" abzuändern. Dann erwartet der solver keinen Abschnitt "data" voller Zahlen mehr, sonderen ein Schlüsselwort "file", das den Pfad zu einer Datei angibt. Dies ist für die folgenden Abschnitte möglich:
-          <h4>bending_stress / Biegespannungen:</h4>
-          Dateityp: .csv
-          <ul>
-            <li>Spalten: x$[mm]$, y$[mm]$, sigma$[MPa]$</li>
-            <li>Trennzeichen: Tabulator \t</li>
-            <li>Kommentare: #</li>
-          </ul>
-          <h4>residual_stress / Eigenspannungen:</h4>
-          Dateityp: .csv
-          <ul>
-            <li>Spalten: r$[mm]$, sigma$[MPa]$</li>
-            <li>Trennzeichen: Tabulator \t</li>
-            <li>Kommentare: #</li>
-          </ul>
-      <h4>load_composition / Lastzusammenstellung:</h4>
-          Dateitypen: .json, .enc oder .csv
+            <h3>"type": "file"</h3>
+            Wenn CCGS eine json Datei erstellt, dann wird es alle benötigten Daten in die JSON-Datei schreiben. Für einen Nutzer der nur den Solver verwendet ist es jedoch umständlich und zeitraubend alle Daten (vielleicht sogar von Hand) einzutragen. Daher gibt es bei manchen Abschnitten die Möglichkeit den "type" von "data" auf "file" abzuändern. Dann erwartet der solver keinen Abschnitt "data" voller Zahlen mehr, sonderen ein Schlüsselwort "file", das den Pfad zu einer Datei angibt. Dies ist für die folgenden Abschnitte möglich:
+            <h4>bending_stress / Biegespannungen:</h4>
+            Dateityp: .csv
+            <ul>
+              <li>Spalten: x$[mm]$, y$[mm]$, sigma$[MPa]$</li>
+              <li>Trennzeichen: Tabulator \t</li>
+              <li>Kommentare: #</li>
+            </ul>
+            <h4>residual_stress / Eigenspannungen:</h4>
+            Dateityp: .csv
+            <ul>
+              <li>Spalten: r$[mm]$, sigma$[MPa]$</li>
+              <li>Trennzeichen: Tabulator \t</li>
+              <li>Kommentare: #</li>
+            </ul>
+          <h4>load_composition / Lastzusammenstellung:</h4>
+            Dateitypen: .json, .enc oder .csv
           <ul>
             <li>.json:</li>
               <ul>
@@ -607,8 +609,67 @@
               </ul>
               in der Spalte "one_time" steht entweder "true" oder "false"
           </ul>
+          </div>
+          <div class="article" id="chapter4">
+            <h2>4. Statische Sicherheit</h2>
+            Es wurde ein neues Solver-Modul zur Berechnung der statischen Sicherheit von Bauteilen geschrieben und in die graphische Oberfläche implementiert.
+            <ul>
+              <li>Achse (nur Vollzylinder)</li>
+              <li>Rohr</li>
+              <li>Eckanriss</li>
+              <li>Flachstab</li>
+            </ul>
+            <p class="col-md-12"></p>
+            Als Grundlage für die Berechnung der Level 1 FAD (Fracture Assessment Diagram) Kurve wurde die Richtlinie "SINTAP Procedure" so wie "FKM - Richtlinie" berücksichtigt.</br>
+            Die Berechnung kann mit so wie ohne Berücksichtigung der ausgeprägten Streckgrenze stattfinden.
+            <p class="col-md-12"></p>
+            
+            <!--
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<p></p>
+            -->
+            <div class="col-md-12">
+              <img class="col-md-offset-2 col-md-8" src="./src/img/statische_sicherheit.png" alt=""/>
+              <div class="subtitle col-md-12">
+                <b>Abbildung 12.</b> Zur Berechnung der statischen Sicherheit der verschiedenen Geometrien wurden in der Graphischen Oberfläche neue Einstellungsmöglichkeiten geschaffen
+              </div>
+            </div>
+
+            <!--
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.<p></p>
+            -->
+            <div class="col-md-12">
+              <img class="col-md-offset-2 col-md-8" src="./src/img/statische_sicherheit1.png" alt=""/>
+              <div class="subtitle col-md-12">
+                <b>Abbildung 13.</b> Die Ergebnisse werden möglichst ähnlich denen der dynamischen Rechnung präsentiert.
+              </div>
+            </div>
+
+            <!--
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            -->
+            <p class="col-md-12">Die FAD (Fracture Assesment Diagram) werden nach dem Level 1 dargestellt.</br>
+            Auf dem Diagram ist zusätzlich ersichtlich wo die Werte mit wie auch ohne Eigenspannungen liegen.</br>
+            Ob man sich in einem sicheren oder unsicheren Bereich der statischen Sicherheit befindet, ist aus der Farbe des Diagrams ersichtlich.</p>
+            <p class="col-md-12"></p>
+
+            <div class="col-md-12">
+              <div class="pull-left col-md-6">
+                <img class="col-md-12" src="./src/img/statische_sicherheit_success.png" alt=""/>
+                <div class="subtitle">
+                  <b>Abbildung 14.</b> Darstellung für ein sicheres Ergebnis.
+                </div>
+              </div>
+              <div class="pull-right col-md-6">
+                <img class="col-md-12" src="./src/img/statische_sicherheit_fail.png" alt=""/>
+                <div class="subtitle">
+                  <b>Abbildung 15.</b> Darstellung für ein unsicheres Ergebnis.
+                </div>
+              </div>
+            </div>
+            
+          </div>
           <div id="lastDivStanding"></div>
-        </div>
+      </div>
     </div><!-- /container -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
